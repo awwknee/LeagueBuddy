@@ -1,0 +1,209 @@
+﻿<mde:MaterialWindow
+    x:Class="LeagueBuddy.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:LeagueBuddy"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+    xmlns:viewmodels="clr-namespace:LeagueBuddy.ViewModels"
+    Width="1024"
+    Height="576"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="{materialDesign:MaterialDesignFont}"
+    TextElement.FontSize="14"
+    TextElement.FontWeight="Medium"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    mc:Ignorable="d">
+    <materialDesign:DialogHost DialogTheme="Inherit" Identifier="RootDialog">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="4.5*" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                BorderThickness="0,1,1,1">
+                <Grid Background="{DynamicResource PrimaryHueDarkBrush}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Height="54"
+                            Source="mango.png"
+                            Stretch="UniformToFill" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontSize="22"
+                            Style="{DynamicResource MaterialDesignTextBlock}">
+                            League Buddy
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                BorderThickness="1,1,0,1">
+                <Grid Background="{DynamicResource PrimaryHueDarkBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="4*" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox
+                        Margin="5"
+                        materialDesign:ComboBoxAssist.ShowSelectedItem="False"
+                        materialDesign:HintAssist.Hint="Account"
+                        materialDesign:HintAssist.IsFloating="True"
+                        Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
+                        Visibility="Hidden">
+                        <ComboBoxItem>Bloby Blob</ComboBoxItem>
+                        <ComboBoxItem>Blobiest Blob</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock
+                        Name="ConnectedTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        FontSize="40"
+                        Style="{DynamicResource MaterialDesignTextBlock}"
+                        Text="{Binding State.Connected, StringFormat=Connected To Client: {0}}" />
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Style="{DynamicResource MaterialDesignIconForegroundButton}">
+                        <materialDesign:PackIcon Kind="Settings" />
+                    </Button>
+                </Grid>
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Background="{DynamicResource PrimaryHueDarkBrush}"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                BorderThickness="0,1,1,0">
+                <StackPanel>
+                    <Button
+                        Margin="2"
+                        HorizontalContentAlignment="Left"
+                        Click="Button_Click">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon
+                                    Grid.Column="0"
+                                    Width="24"
+                                    Height="24"
+                                    Kind="ViewList" />
+                                <Label Grid.Column="1">Champions</Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
+                    <Button
+                        Margin="2"
+                        HorizontalContentAlignment="Left"
+                        IsEnabled="False">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon
+                                    Grid.Column="0"
+                                    Width="24"
+                                    Height="24"
+                                    Kind="Journal" />
+                                <Label Grid.Column="1">Runes</Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
+                    <Separator Margin="10" Background="{DynamicResource PrimaryHueMidBrush}" />
+
+                    <Button
+                        Margin="2"
+                        HorizontalContentAlignment="Left"
+                        Click="AccountClick">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon
+                                    Grid.Column="0"
+                                    Width="24"
+                                    Height="24"
+                                    Kind="AccountBoxMultiple" />
+                                <Label Grid.Column="1">Accounts</Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
+                    <Button
+                        Margin="2"
+                        HorizontalContentAlignment="Left"
+                        IsEnabled="False">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon
+                                    Grid.Column="0"
+                                    Width="24"
+                                    Height="24"
+                                    Kind="Journal" />
+                                <Label Grid.Column="1">Notes</Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
+                    <Button
+                        Margin="2"
+                        HorizontalContentAlignment="Left"
+                        IsEnabled="False">
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon
+                                    Grid.Column="0"
+                                    Width="24"
+                                    Height="24"
+                                    Kind="Tools" />
+                                <Label Grid.Column="1">Tools</Label>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
+                </StackPanel>
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                BorderThickness="1,1,0,0">
+                <ContentControl Name="DisplayedContent" />
+            </Border>
+        </Grid>
+    </materialDesign:DialogHost>
+
+</mde:MaterialWindow>

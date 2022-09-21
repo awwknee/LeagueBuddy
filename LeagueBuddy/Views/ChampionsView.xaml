@@ -1,0 +1,125 @@
+﻿<UserControl
+    x:Class="LeagueBuddy.Views.ChampionsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:LeagueBuddy.Util.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:LeagueBuddy.Views"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:LeagueBuddy.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:SquareConverter x:Key="SquareConverter" />
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:1.5}">
+                <materialDesign:ColorZone
+                    Margin="4"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    Mode="PrimaryMid">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Width="Auto">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon
+                                Grid.Column="0"
+                                Width="32"
+                                Height="32"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="Account" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="8,0,0,0"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource MaterialDesignHeadline5TextBlock}">
+                                Champions
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                IsEnabled="{Binding State.Connected}"
+                                IsEnabledChanged="StackPanel_IsEnabledChanged"
+                                Orientation="Horizontal">
+                                <RadioButton
+                                    Name="RadioShowAll"
+                                    Content="Show All Champions"
+                                    GroupName="GroupChoiceChip"
+                                    IsChecked="True"
+                                    Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" />
+                                <RadioButton
+                                    Checked="RadioButton_Checked"
+                                    Content="Show Owned Champions"
+                                    GroupName="GroupChoiceChip"
+                                    Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}"
+                                    Unchecked="RadioButton_Unchecked" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <TextBox
+                                Margin="2"
+                                materialDesign:HintAssist.Foreground="{DynamicResource SecondaryHueLightBrush}"
+                                materialDesign:HintAssist.Hint="Search for Champion"
+                                materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryHueLightBrush}"
+                                Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
+                                TextChanged="TextBox_TextChanged" />
+                        </Grid>
+                    </Grid>
+                </materialDesign:ColorZone>
+            </materialDesign:TransitioningContent>
+            <ItemsControl
+                Name="Champions"
+                Grid.Row="1"
+                ItemsSource="{Binding State.ChampionsFull}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Resources>
+                    <Style BasedOn="{StaticResource {x:Type materialDesign:ColorZone}}" TargetType="{x:Type materialDesign:ColorZone}">
+                        <Setter Property="Width" Value="96" />
+                        <Setter Property="Height" Value="96" />
+                        <Setter Property="Margin" Value="2" />
+                        <Setter Property="Mode" Value="PrimaryLight" />
+                    </Style>
+                </ItemsControl.Resources>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:TransitioningContent OpeningEffect="{materialDesign:TransitionEffect ExpandIn, Duration=0:0:1.0}">
+                            <materialDesign:ColorZone>
+                                <Image Source="{Binding Id, Converter={StaticResource SquareConverter}}" Stretch="UniformToFill">
+                                    <Image.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Op.gg" />
+                                            <MenuItem Header="U.gg" />
+                                            <MenuItem Header="Wiki" />
+                                        </ContextMenu>
+                                    </Image.ContextMenu>
+                                </Image>
+                            </materialDesign:ColorZone>
+                        </materialDesign:TransitioningContent>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+
+    </ScrollViewer>
+</UserControl>
